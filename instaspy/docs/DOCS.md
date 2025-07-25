@@ -1,7 +1,7 @@
 ## Import & Initialize
 ```python
 from instaspy import Instagram
-```python
+
 cookie = 'your cookie string'
 ig = Instagram(cookie=cookie)
 ```
@@ -20,5 +20,4 @@ print(ig.user_data(username=ig.username)) # output: dict
 ```python
 username = 'ivanfmh15'
 print(ig.user_data(username=username)) # output: dict
-```
 ```
