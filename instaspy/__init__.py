@@ -2,7 +2,7 @@ import requests, json, re
 import config
 from exceptions import CookieError, UserNotFound
 
-class InstaSpy:
+class Instagram:
     def __init__(self, cookie: str) -> None:
         self.session = requests.session()
         self.session.cookies['cookie'] = cookie
