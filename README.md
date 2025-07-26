@@ -17,7 +17,7 @@ pip install instaspy
 - retrieve user information.
 
 ## login
-get cookies using this extension: https://....
+get cookies using this [extension](https://chromewebstore.google.com/detail/get-cookies/hdablekeodiopcnddiamhahahkiiloph)
 ```python
 from instaspy import Instagram
 
