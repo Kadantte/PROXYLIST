@@ -1,6 +1,6 @@
 import requests, json, re
-import config
-from exceptions import CookieError, UserNotFound
+import .config
+from .exceptions import CookieError, UserNotFound
 
 class Instagram:
     def __init__(self, cookie: str) -> None:
