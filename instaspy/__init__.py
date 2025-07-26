@@ -1,5 +1,5 @@
 import requests, json, re
-import .config
+from . import config
 from .exceptions import CookieError, UserNotFound
 
 class Instagram:
