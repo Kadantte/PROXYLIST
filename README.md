@@ -2,8 +2,8 @@
 
 <p align="center">
 <a href="https://choosealicense.com/licenses/mit/"> <img src="https://img.shields.io/badge/License-MIT-green.svg"></a>
-<a href="https://www.python.org/"><img src="https://img.shields.io/pypi/pyversions/instagpy"></a>
-<a href="https://pypi.org/project/instagpy/"> <img src="https://img.shields.io/pypi/v/instagpy"></a>
+<a href="https://www.python.org/"><img src="https://img.shields.io/pypi/pyversions/instaspy"></a>
+<a href="https://pypi.org/project/instaspy/"> <img src="https://img.shields.io/pypi/v/instaspy"></a>
 <a href="https://github.com/jepluk/instaspy/commits"> <img src="https://img.shields.io/github/last-commit/jepluk/instaspy"></a>
 </p>
 
