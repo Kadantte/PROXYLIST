@@ -1,18 +1,18 @@
 import requests, json, re
-import config
-from exceptions import CookieError, UserNotFound
+from . import config
+from .exceptions import CookieError, UserNotFound
 
 class Instagram:
     def __init__(self, cookie: str) -> None:
         self.session = requests.session()
         self.session.cookies['cookie'] = cookie
 
-        self.is_login = False 
+        self.is_login = self.user_login()
         
     def login(func):
         def wrapper(self, *args, **kwargs):
             if not self.is_login:
-                self.user_login()
+                raise CookieError('Check your cookies.')
 
             return func(self, *args, **kwargs)
         return wrapper
@@ -24,11 +24,11 @@ class Instagram:
             setattr(self, 'id', re.search(r'"id":"(.*?)"', src).group(1))
             setattr(self, 'name', re.search(r'"full_name":"(.*?)"', src).group(1))
             setattr(self, 'graphql_headers', {'authority': 'www.instagram.com','accept': '*/*','accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7','content-type': 'application/x-www-form-urlencoded','origin': 'https://www.instagram.com','referer': 'https://www.instagram.com/','sec-ch-prefers-color-scheme': 'dark','sec-ch-ua': '"Not A(Brand";v="8", "Chromium";v="132"','sec-ch-ua-full-version-list': '"Not A(Brand";v="8.0.0.0", "Chromium";v="132.0.6961.0"','sec-ch-ua-mobile': '?1','sec-ch-ua-model': '"23108RN04Y"','sec-ch-ua-platform': '"Android"','sec-ch-ua-platform-version': '"15.0.0"','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Mobile Safari/537.36','x-asbd-id': '359341','x-csrftoken': re.search(r'"csrf_token":"(.*?)"', src).group(1)})
-            setattr(self, 'api_headers', {'authority': 'www.instagram.com','accept': '*/*','accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7','content-type': 'application/x-www-form-urlencoded','origin': 'https://www.instagram.com','referer': 'https://www.instagram.com/ivan.fmsyh','sec-ch-prefers-color-scheme': 'light','sec-ch-ua': '"Chromium";v="139", "Not;A=Brand";v="99"','sec-ch-ua-full-version-list': '"Chromium";v="139.0.7339.0", "Not;A=Brand";v="99.0.0.0"','sec-ch-ua-mobile': '?0','sec-ch-ua-model': '""','sec-ch-ua-platform': '"Linux"','sec-ch-ua-platform-version': '""','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36','x-asbd-id': '359341','x-csrftoken': re.search(r'"csrf_token":"(.*?)"', src).group(1),'x-ig-app-id': '936619743392459','x-ig-www-claim': 'hmac.AR1ex5_OwFYv6vSWjrxVLTlRWmlRczzopy3Fm8Ff-VG4-N45','x-instagram-ajax': '1025144473','x-requested-with': 'XMLHttpRequest','x-web-session-id': '',})
+            setattr(self, 'api_headers', {'authority': 'www.instagram.com','accept': '*/*','accept-language': 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7','content-type': 'application/x-www-form-urlencoded','origin': 'https://www.instagram.com','referer': 'https://www.instagram.com/ivan.fmsyh','sec-ch-prefers-color-scheme': 'light','sec-ch-ua': '"Chromium";v="139", "Not;A=Brand";v="99"','sec-ch-ua-full-version-list': '"Chromium";v="139.0.7339.0", "Not;A=Brand";v="99.0.0.0"','sec-ch-ua-mobile': '?0','sec-ch-ua-model': '""','sec-ch-ua-platform': '"Linux"','sec-ch-ua-platform-version': '""','sec-fetch-dest': 'empty','sec-fetch-mode': 'cors','sec-fetch-site': 'same-origin','user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36','x-asbd-id': '359341','x-csrftoken': re.search(r'"csrf_token":"(.*?)"', src).group(1),'x-ig-app-id': '936619743392459','x-ig-www-claim': re.search(r'"claim":"(.*?)"', src).group(1),'x-instagram-ajax': '1025144473','x-requested-with': 'XMLHttpRequest','x-web-session-id': '',})
 
-            self.is_login = True
+            return True
         except AttributeError:
-            raise CookieError('Check your cookies.')
+            return False
 
     @login 
     def user_data(self, username) -> dict:
